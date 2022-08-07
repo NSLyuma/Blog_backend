@@ -9,11 +9,9 @@ import { UserController, PostController } from "./controllers/index.js";
 import multer from "multer";
 import { handleValidationErrors, checkAuth } from "./utils/index.js";
 import cors from "cors";
-
+//"mongodb+srv://admin:wwwww@cluster0.dwpow.mongodb.net/blog?retryWrites=true&w=majority"
 mongoose
-  .connect(
-    "mongodb+srv://admin:wwwww@cluster0.dwpow.mongodb.net/blog?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGODB_URI)
   .then(() => console.log("DB OK"))
   .catch((err) => console.log("DB error", err));
 
@@ -85,7 +83,7 @@ app.patch(
 );
 
 //на какой порт прикрепить наше приложение (тут 4444)
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     //если сервер не смог запуститься, то мы вернём сообщение об этом (ошибка)
     return console.log(err);
