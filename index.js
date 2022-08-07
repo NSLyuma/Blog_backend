@@ -1,15 +1,16 @@
 import express from "express";
-import fs from "fs";
+// import fs from "fs";
+import multer from "multer";
+import cors from "cors";
 import mongoose from "mongoose";
 import {
   registerValidation,
   loginValidation,
   postCreateValidation,
 } from "./validations.js";
-import { UserController, PostController } from "./controllers/index.js";
-import multer from "multer";
 import { handleValidationErrors, checkAuth } from "./utils/index.js";
-import cors from "cors";
+import { UserController, PostController } from "./controllers/index.js";
+
 //"mongodb+srv://admin:wwwww@cluster0.dwpow.mongodb.net/blog?retryWrites=true&w=majority"
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -21,9 +22,9 @@ const app = express();
 //хранилище для хранения картинок
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
-    if (!fs.existsSync("uploads")) {
-      fs.mkdirSync("uploads");
-    }
+    // if (!fs.existsSync("uploads")) {
+    //   fs.mkdirSync("uploads");
+    // }
     cb(null, "uploads");
   },
   filename: (_, file, cb) => {
