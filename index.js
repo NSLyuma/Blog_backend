@@ -9,6 +9,7 @@ import { UserController, PostController } from "./controllers/index.js";
 import multer from "multer";
 import { handleValidationErrors, checkAuth } from "./utils/index.js";
 import cors from "cors";
+import fs from "fs";
 
 mongoose
   .connect(process.env.MONGODB_URI)
@@ -20,6 +21,9 @@ const app = express();
 //хранилище для хранения картинок
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
+    if (!fs.existSync("uploads") {
+        fs.mkdirSync("uploads");
+  }
     cb(null, "uploads");
   },
   filename: (_, file, cb) => {
